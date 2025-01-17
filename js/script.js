@@ -1,7 +1,7 @@
 let titles = [
     "m", "ma", "mar", "mart", "marty", "martyc",
-    "martyc.", "martyc.c", "martyc.cz", "martyc.cz", "martyc.cz", "martyc.cz",
-    "martyc.cz", "martyc.cz", "martyc.c", "martyc.", "martyc", "marty", "mart", "mar", "ma", "m", "\u200B", "\u200B"
+    "martyc.", "martyc.e", "martyc.eu", "martyc.eu", "martyc.eu", "martyc.eu",
+    "martyc.eu", "martyc.eu", "martyc.e", "martyc.", "martyc", "marty", "mart", "mar", "ma", "m", "\u200B", "\u200B"
 ];
 let index = 0;
 let maxIndex = titles.length - 1;
