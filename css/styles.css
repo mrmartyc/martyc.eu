@@ -15,7 +15,7 @@ body {
     margin: 0;
     font-family: '1', sans-serif;
     position: relative;
-    background-image: url('assets/backround.jpeg');
+    background-image: url('/assets/backround.jpeg');
     cursor: url('assets/mac-os-x.cur'), auto !important; 
     background-size: cover;
     background-position: center;
@@ -35,7 +35,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('assets/backround.jpeg');
+    background-image: url('/assets/backround.jpeg');
     background-color: #000000;
     background-size: cover;
     background-position: center;
@@ -74,7 +74,7 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('assets/rain.gif') no-repeat center center;
+    background: url('/assets/rain.gif') no-repeat center center;
     background-size: cover;
     z-index: 333; 
     pointer-events: none; 
@@ -182,7 +182,7 @@ canvas {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('assets/white.gif') no-repeat center;
+    background: url('/assets/white.gif') no-repeat center;
     background-size: cover;
     z-index: 0;
     padding: 5px;
@@ -208,7 +208,7 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: url('assets/mac-os-x.cur'), auto;
+    cursor: url('/assets/mac-os-x.cur'), auto;
     color: white; 
     text-decoration: none;
     white-space: nowrap;
