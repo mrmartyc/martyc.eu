@@ -242,16 +242,16 @@ canvas {
 }
 
 .social-icon:hover .discord-popup,
-.social-icon.steam:hover #steam-popup
-.social-icon.github:hover #github-popup
+.social-icon.steam:hover #steam-popup,
+.social-icon.github:hover #github-popup,
 .social-icon.instagram:hover #instagram-popup {
     opacity: 1;
     pointer-events: auto;  
     transform: translateX(-50%) scale(0.9);  
 }
 .social-icon:not(:hover) .discord-popup,
-.social-icon:not(:hover) #steam-popup 
-.social-icon:not(:hover) #github-popup
+.social-icon:not(:hover) #steam-popup, 
+.social-icon:not(:hover) #github-popup,
 .social-icon:not(:hover) #instagram-popup {
     opacity: 0; 
     transform: translateX(-50%) scale(0.7);  
