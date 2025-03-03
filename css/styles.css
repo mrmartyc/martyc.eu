@@ -224,7 +224,7 @@ canvas {
 
 
 .discord-popup,
-#steam-popup, #github-popup, #instagram-popup {
+#steam-popup, #github-popup, #instagram-popup, #list-popup {
     position: absolute;
     bottom: calc(100% + 10px);
     left: 50%;
@@ -244,15 +244,17 @@ canvas {
 .social-icon:hover .discord-popup,
 .social-icon.steam:hover #steam-popup,
 .social-icon.github:hover #github-popup,
-.social-icon.instagram:hover #instagram-popup {
+.social-icon.instagram:hover #instagram-popup,
+.social-icon.list:hover #list-popup {
     opacity: 1;
     pointer-events: auto;  
     transform: translateX(-50%) scale(0.9);  
 }
 .social-icon:not(:hover) .discord-popup,
-.social-icon:not(:hover) #steam-popup, 
+.social-icon:not(:hover) #steam-popup,
 .social-icon:not(:hover) #github-popup,
-.social-icon:not(:hover) #instagram-popup {
+.social-icon:not(:hover) #instagram-popup,
+.social-icon:not(:hover) #list-popup {
     opacity: 0; 
     transform: translateX(-50%) scale(0.7);  
 }
