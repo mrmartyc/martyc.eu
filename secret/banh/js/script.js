@@ -1,62 +1,67 @@
-const infoData = {
-    ip: "78.102.125.73",
-    hostname: "ip-78-102-125-73.bb.vodafone.cz",
-    city: "Prague",
-    region: "Prague",
-    country: "CZ",
-    loc: "50.0880,14.4208",
-    org: "AS16019 Vodafone Czech Republic a.s.",
-    postal: "110 00",
-    timezone: "Europe/Prague (GMT+1)",
-    is_anycast: false,
-    is_mobile: false,
-    is_anonymous: false,
-    is_satellite: false,
-    is_hosting: false,
-    asn: "AS16019",
-    name: "Vodafone Czech Republic a.s.",
-    domain: "vodafone.cz",
-    route: "78.102.0.0/17",
-    type: "isp",
-    company: "Vodafone Czech Republic a.s.",
-    privacy: {
-        vpn: false,
-        proxy: false,
-        tor: false,
-        relay: false,
-        hosting: false,
-        service: "none"
+async function fetchUserInfo() {
+    try {
+        const response = await fetch('https://ipapi.co/json/'); // Použití API pro získání údajů
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Chyba při načítání údajů o uživateli:', error);
+        return null;
     }
-};
+}
 
-function typeInfo() {
+function getUserSystemInfo() {
+    return {
+        browser: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        cookiesEnabled: navigator.cookieEnabled,
+        screenWidth: screen.width,
+        screenHeight: screen.height,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        cpuCores: navigator.hardwareConcurrency || 'N/A',
+        memory: navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'N/A',
+        online: navigator.onLine ? 'Yes' : 'No',
+        gpu: getGPUInfo()
+    };
+}
+
+function getGPUInfo() {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return 'N/A';
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    return debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+}
+
+function typeInfo(userData, systemData) {
     const infoContainer = document.getElementById("info");
-    let text = `IP: ${infoData.ip}
-Hostname: ${infoData.hostname}
-City: ${infoData.city}
-Region: ${infoData.region}
-Country: ${infoData.country}
-Location: ${infoData.loc}
-Organization: ${infoData.org}
-Postal: ${infoData.postal}
-Timezone: ${infoData.timezone}
-Is Anycast: ${infoData.is_anycast}
-Is Mobile: ${infoData.is_mobile}
-Is Anonymous: ${infoData.is_anonymous}
-Is Satellite: ${infoData.is_satellite}
-Is Hosting: ${infoData.is_hosting}
-ASN: ${infoData.asn}
-Company: ${infoData.company}
-Domain: ${infoData.domain}
-Route: ${infoData.route}
-Type: ${infoData.type}
-Privacy:
-  VPN: ${infoData.privacy.vpn}
-  Proxy: ${infoData.privacy.proxy}
-  TOR: ${infoData.privacy.tor}
-  Relay: ${infoData.privacy.relay}
-  Hosting: ${infoData.privacy.hosting}
-  Service: ${infoData.privacy.service}`;
+    let text = `IP: ${userData.ip}
+Hostname: ${userData.hostname || 'N/A'}
+City: ${userData.city}
+Region: ${userData.region}
+Country: ${userData.country_name}
+Latitude: ${userData.latitude}
+Longitude: ${userData.longitude}
+ISP: ${userData.org || userData.isp || 'N/A'}
+ASN: ${userData.asn || 'N/A'}
+Timezone: ${userData.timezone}
+Postal Code: ${userData.postal || 'N/A'}
+Currency: ${userData.currency || 'N/A'}
+Calling Code: ${userData.country_calling_code || 'N/A'}
+Languages: ${userData.languages || 'N/A'}
+EU Member: ${userData.in_eu ? 'Yes' : 'No'}
+VPN/Proxy: ${userData.security ? userData.security.vpn || userData.security.proxy ? 'Yes' : 'No' : 'Unknown'}
+
+Browser: ${systemData.browser}
+Platform: ${systemData.platform}
+Language: ${systemData.language}
+Cookies Enabled: ${systemData.cookiesEnabled}
+Screen Resolution: ${systemData.screenWidth}x${systemData.screenHeight}
+Timezone: ${systemData.timezone}
+CPU Cores: ${systemData.cpuCores}
+Memory: ${systemData.memory}
+Online: ${systemData.online}
+GPU: ${systemData.gpu}`;
 
     let i = 0;
     function type() {
@@ -72,32 +77,26 @@ Privacy:
 window.onload = function () {
     const overlay = document.getElementById('overlay');
     const video = document.getElementById('background-video');
-    overlay.addEventListener('click', function() {
-    video.volume = 0.15;
-        
+    overlay.addEventListener('click', async function() {
+        video.volume = 0.15;
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
 
-        setTimeout(function() {
+        setTimeout(async function() {
             document.getElementById('content').style.visibility = 'visible';
             document.getElementById('background-video').play();
-            typeInfo();
-        });
+            const userInfo = await fetchUserInfo();
+            const systemInfo = getUserSystemInfo();
+            if (userInfo) {
+                typeInfo(userInfo, systemInfo);
+            }
+        }, 500);
 
-
-        // pageenter anim
         const infoContainer = document.querySelector('.container');
         infoContainer.classList.add('page-enter-animation');
     });
-            // trail
-        
-            new cursoreffects.trailingCursor({
-                particles: 10,               
-                rate: 0.4,                   
-                baseImageSrc: '/assets/mac-os-x.cur'  
-            });
-    
-            // zakazuje se vsechno
-            document.addEventListener('dragstart', function (e) {
-                e.preventDefault(); 
-})}
+
+    document.addEventListener('dragstart', function (e) {
+        e.preventDefault(); 
+    });
+};
