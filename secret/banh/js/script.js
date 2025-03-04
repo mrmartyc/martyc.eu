@@ -59,7 +59,7 @@ Cookies Enabled: ${systemData.cookiesEnabled}
 Screen Resolution: ${systemData.screenWidth}x${systemData.screenHeight}
 Timezone: ${systemData.timezone}
 CPU Cores: ${systemData.cpuCores}
-Memory: ${systemData.memory}
+Used memory: ${systemData.memory}
 Online: ${systemData.online}
 GPU: ${systemData.gpu}`;
 
